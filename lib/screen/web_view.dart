@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:motsha_app/screen/add_fisherman_info.dart';
 import 'package:motsha_app/screen/issue_submit.dart';
 import 'package:motsha_app/screen/notice_page.dart';
@@ -17,6 +21,35 @@ class MatshoWebPage extends StatefulWidget {
 }
 
 class _MatshoWebPageState extends State<MatshoWebPage> {
+  late StreamSubscription subscription;
+  bool isDeviceConnected = false;
+  bool isAlertSet = false;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    getConnectivity();
+    super.initState();
+  }
+
+  getConnectivity() =>
+      subscription = Connectivity().onConnectivityChanged.listen(
+            (ConnectivityResult result) async {
+          isDeviceConnected = await InternetConnectionChecker().hasConnection;
+          if (!isDeviceConnected && isAlertSet == false) {
+            showDialogBox();
+            setState(() => isAlertSet = true);
+          }
+        },
+      );
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    subscription.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -35,9 +68,9 @@ class _MatshoWebPageState extends State<MatshoWebPage> {
                     context: context,
                     builder: (BuildContext context) {
                       return AlertDialog(
-                        title: Text("select an option"),
+                        title: Text("Options:"),
                         content: Container(
-                          height: MediaQuery.of(context).size.height*.35,
+                          height: MediaQuery.of(context).size.height * .35,
                           child: Column(
                             children: [
                               GestureDetector(
@@ -89,8 +122,7 @@ class _MatshoWebPageState extends State<MatshoWebPage> {
                               GestureDetector(
                                 onTap: (() {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: ((context) =>
-                                      SearchHere())));
+                                      builder: ((context) => SearchHere())));
                                 }),
                                 child: Container(
                                   height: 40,
@@ -113,13 +145,14 @@ class _MatshoWebPageState extends State<MatshoWebPage> {
                               GestureDetector(
                                 onTap: (() {
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: ((context) => IssueSubmitPage())));
+                                      builder: ((context) =>
+                                          IssueSubmitPage())));
                                 }),
                                 child: Container(
                                   height: 40,
                                   width: 200,
-                                  decoration: BoxDecoration(
-                                      color: Colors.blueGrey),
+                                  decoration:
+                                      BoxDecoration(color: Colors.blueGrey),
                                   child: Center(
                                     child: Text(
                                       "Submit Issues",
@@ -173,4 +206,28 @@ class _MatshoWebPageState extends State<MatshoWebPage> {
       ],
     ));
   }
+
+  showDialogBox() => showCupertinoDialog<String>(
+    context: context,
+    builder: (BuildContext context) => CupertinoAlertDialog(
+      title: const Text('No Connection'),
+      content: const Text('Please check your internet connectivity'),
+      actions: <Widget>[
+        TextButton(
+          onPressed: () async {
+            Navigator.pop(context, 'Cancel');
+            setState(() => isAlertSet = false);
+            isDeviceConnected =
+            await InternetConnectionChecker().hasConnection;
+            if (!isDeviceConnected && isAlertSet == false) {
+              showDialogBox();
+              setState(() => isAlertSet = true);
+            }
+          },
+          child: const Text('OK'),
+        ),
+      ],
+    ),
+  );
+
 }

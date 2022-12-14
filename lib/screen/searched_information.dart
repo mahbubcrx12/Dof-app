@@ -66,7 +66,7 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                 color: Colors.black,
               )),
           title: Text("You have searched for",style: TextStyle(
-              color: Colors.black,fontSize: 20,fontWeight: FontWeight.bold),),
+              color: Colors.black87.withOpacity(.5),fontSize: 20,fontWeight: FontWeight.bold),),
           actions: [
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -226,6 +226,7 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                                       "Educational Qualifications (শিক্ষাগত যোগ্যতা): ${fishermanData[index].education}",
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
+                                        fontSize: 20
                                       ),
                                     ),
                                   ),

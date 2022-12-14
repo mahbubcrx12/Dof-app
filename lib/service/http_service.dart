@@ -20,7 +20,7 @@ class HttpService {
         var data = jsonDecode(response.body);
 
         var fetchedData = data['data'];
-        print(data['data']);
+        //print(data['data']);
         // print(fetchedData);
 
         Data dataNotice;
@@ -29,15 +29,15 @@ class HttpService {
           noticeData.add(dataNotice);
 
         }
-        print("aaaaaaaaaaaaaaaaaaaaaaaaaa$noticeData");
-        print('kkkkkkkkkkkkkkkkkkkkkk');
+        // print("aaaaaaaaaaaaaaaaaaaaaaaaaa$noticeData");
+        // print('kkkkkkkkkkkkkkkkkkkkkk');
       
         return noticeData;
       } else {
         return noticeData;
       }
     } catch (e) {
-      print("Errrrrrr $e");
+      //print("Errrrrrr $e");
       return noticeData;
     }
   }

@@ -374,44 +374,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                   ),
                 ),
 
-                // Padding(
-                //   padding:
-                //   const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                //   child:
-                //   DropdownButtonFormField(
-                //     value:selectedDivisionName,
-                //     isDense: true,
-                //     items:divisionList.map((list){
-                //       return DropdownMenuItem (
-                //         child: Text("${list.divisionEng}"),
-                //         value: list.divisionEng,
-                //       );
-                //     }).toList(),
-                //     onChanged: (value){
-                //       setState(() {
-                //         selectedDivisionName=value.toString();
-                //       });
-                //       print("ddddddddddd $selectedDivisionName");
-                //     },
-                //     validator: ( value) {
-                //       if(value== null )
-                //         return "Field is required";
-                //       return null;
-                //     },
-                //     decoration: InputDecoration(
-                //         enabledBorder: OutlineInputBorder(
-                //           borderSide: BorderSide(color: Colors.green),
-                //         ),
-                //         labelText: "Division",
-                //         hintText: "Division",
-                //         border: OutlineInputBorder(
-                //             borderRadius: BorderRadius.circular(12),
-                //             gapPadding: 4.0,
-                //             borderSide:
-                //             BorderSide(color: Color(0xFF642E4C), width: 30))),
-                //   ),
-                //
-                // ),
 
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
