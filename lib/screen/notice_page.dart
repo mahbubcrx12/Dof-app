@@ -21,6 +21,7 @@ class NoticePage extends StatefulWidget {
 class _NoticePageState extends State<NoticePage> {
   String? url;
   String? title;
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
@@ -44,27 +45,20 @@ class _NoticePageState extends State<NoticePage> {
   }
 
   downloadPDF({String? downloadLink, String? title}) async {
-
     var dio;
     if (await Permission.storage.request().isGranted) {
-
       final downloadPath = await path.getExternalStorageDirectory();
       var filePath = downloadPath!.path + '/$title';
 
       dio = Dio();
       await dio.download(downloadLink, filePath).then((value) {
-
         dio.close();
       }).catchError((Object e) {
-
         Fluttertoast.showToast(
             msg: "Download successful", timeInSecForIosWeb: 1);
       });
-    } else {
-
-    }
+    } else {}
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -79,11 +73,11 @@ class _NoticePageState extends State<NoticePage> {
               },
               icon: Icon(
                 Icons.arrow_back_ios,
-                color: Colors.black,
+                color: Colors.black87.withOpacity(.8),
               )),
           title: Text(
             "Notice ",
-            style: TextStyle(color: Colors.black),
+            style: TextStyle(color: Colors.black87.withOpacity(.8)),
           ),
           centerTitle: true,
         ),
@@ -115,27 +109,86 @@ class _NoticePageState extends State<NoticePage> {
                                     "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].image}"),
                                 fit: BoxFit.cover,
                               ),
-                              IconButton(
-                                  onPressed: () {
-                                    url =
-                                        "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].image}";
-                                    _saveImage();
-                                  },
-                                  icon: Icon(
-                                    Icons.download,
-                                    size: 40,
-                                    color: Colors.green,
-                                  )),
                               Text("${noticeData[index].description}"),
-                              TextButton(
-                                  onPressed: () {
-                                    url =
-                                    "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFile}";
-                                    title="http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFileWithExtension}";
-                                    downloadPDF(downloadLink: "http://dof-demo.rdtl.xyz/noticeboard/images/850fe67f759378fd216837f4ef42ce9b.pdf",title: title);
-                                  },
-                                  child: Text("Click here to download pdf")),
-
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      url =
+                                          "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].image}";
+                                      _saveImage();
+                                    },
+                                    child: Container(
+                                        height: 30,
+                                        width: 130,
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          border: Border(
+                                            left: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                            right: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                            top: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                            bottom: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Center(
+                                            child: Text("Download Image"))
+                                    ),
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      url =
+                                          "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFile}";
+                                      title =
+                                          "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFileWithExtension}";
+                                      downloadPDF(
+                                          downloadLink:
+                                              "http://dof-demo.rdtl.xyz/noticeboard/images/850fe67f759378fd216837f4ef42ce9b.pdf",
+                                          title: title);
+                                    },
+                                    child: Container(
+                                        height: 30,
+                                        width: 130,
+                                        decoration: BoxDecoration(
+                                          color: Colors.green,
+                                          border: Border(
+                                            left: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                            right: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                            top: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                            bottom: BorderSide(
+                                              color: Colors.green,
+                                              width: 1,
+                                            ),
+                                          ),
+                                        ),
+                                        child: Center(
+                                            child: Text("Download PDF"))),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10,)
                             ],
                           ),
                         ),

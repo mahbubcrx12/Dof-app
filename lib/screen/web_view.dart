@@ -1,15 +1,10 @@
 import 'dart:async';
-
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:motsha_app/screen/add_fisherman_info.dart';
 import 'package:motsha_app/screen/drawer_of_homepage.dart';
-import 'package:motsha_app/screen/issue_submit.dart';
-import 'package:motsha_app/screen/notice_page.dart';
-import 'package:motsha_app/screen/search_fisherman.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+
 
 class MatshoWebPage extends StatefulWidget {
   const MatshoWebPage({Key? key}) : super(key: key);

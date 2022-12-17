@@ -24,10 +24,10 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20,bottom: 20),
+            padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
             child: Text(
               "Menu",
-              style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
           ),
           Container(
@@ -39,10 +39,6 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
-
                 InkWell(
                   onTap: (() {
                     Navigator.of(context).push(MaterialPageRoute(
@@ -50,10 +46,10 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   }),
                   child: Container(
                     height: 50,
-                    width: MediaQuery.of(context).size.width * .9,
+                    width: MediaQuery.of(context).size.width,
                     color: color,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 5),
+                      padding: const EdgeInsets.only(left: 20),
                       child: Row(
                         children: [
                           Icon(
@@ -66,10 +62,9 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                           Text(
                             "Registration",
                             style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black87.withOpacity(.80),
-                                //fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.none),
+                              fontSize: 20,
+                              color: Colors.black87.withOpacity(.80),
+                            ),
                           ),
                         ],
                       ),
@@ -78,7 +73,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                 ),
                 Container(
                   height: 1,
-                  color: Colors.black54,
+                  color: Colors.black12,
                 ),
                 InkWell(
                   onTap: (() {
@@ -90,10 +85,10 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                     width: MediaQuery.of(context).size.width * .9,
                     color: color,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 7),
+                      padding: const EdgeInsets.only(left: 20),
                       child: Row(
                         children: [
-                          Icon(Icons.add_alert_sharp, color: Colors.black),
+                          Icon(Icons.add_alert_sharp, color: Colors.green),
                           SizedBox(
                             width: 10,
                           ),
@@ -102,8 +97,6 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,
-                              fontWeight: FontWeight.bold,
-                              //decoration: TextDecoration.none
                             ),
                           ),
                         ],
@@ -113,7 +106,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                 ),
                 Container(
                   height: 1,
-                  color: Colors.black54,
+                  color: Colors.black12,
                 ),
                 InkWell(
                   onTap: (() {
@@ -125,20 +118,19 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                     width: MediaQuery.of(context).size.width * .9,
                     color: color,
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 20, top: 7),
+                      padding: const EdgeInsets.only(left: 20),
                       child: Row(
                         children: [
-                          Icon(Icons.search, color: Colors.black),
+                          Icon(Icons.search, color: Colors.green),
                           SizedBox(
                             width: 10,
                           ),
                           Text(
                             "Search",
                             style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.none),
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),
@@ -147,7 +139,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                 ),
                 Container(
                   height: 1,
-                  color: Colors.black54,
+                  color: Colors.black12,
                 ),
                 // Divider(color: Colors.black,height: 2),
                 InkWell(
@@ -163,40 +155,22 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                       padding: const EdgeInsets.only(left: 20, top: 7),
                       child: Row(
                         children: [
-                          Icon(Icons.info_outline, color: Colors.red),
+                          Icon(Icons.info_outline, color: Colors.green),
                           SizedBox(
                             width: 10,
                           ),
                           Text(
                             "Submit Issue",
                             style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                decoration: TextDecoration.none),
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
                 ),
-                // Divider(color: Colors.black,height: 2),
-                // GestureDetector(
-                //   onTap: () {
-                //     Navigator.of(context).pop();
-                //   },
-                //   child: Container(
-                //     height: 40,
-                //     width: 80,
-                //     decoration: BoxDecoration(
-                //         color: Colors.black26,
-                //         borderRadius: BorderRadius.circular(20)),
-                //     child: Icon(
-                //       Icons.arrow_back,
-                //       size: 30,
-                //     ),
-                //   ),
-                // )
               ],
             ),
           ),

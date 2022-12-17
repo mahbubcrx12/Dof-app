@@ -136,7 +136,7 @@ class _AddFisherManState extends State<AddFisherMan> {
           ),
         ),
         title: Text(
-          "Add Fisherman Info",
+          "Fisher Registration",
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -467,7 +467,7 @@ class _AddFisherManState extends State<AddFisherMan> {
                       });
                     },
                     validator: (value) =>
-                    value == null ? 'field required' : null,
+                    value == null ? 'Field Required' : null,
                     items: districtList.map((item) {
                       return new DropdownMenuItem(
                         child: new Text(
@@ -479,8 +479,8 @@ class _AddFisherManState extends State<AddFisherMan> {
                         ),
                         value: item.districtId.toString(),
                       );
-                    }).toList() ??
-                        [],
+                    }).toList() ?? [],
+
                   ),
                 ),
 
@@ -535,42 +535,59 @@ class _AddFisherManState extends State<AddFisherMan> {
                     takeImage();
                   },
                   child: image == null
-                      ? Container(
-                          height: MediaQuery.of(context).size.height * .25,
-                          width: MediaQuery.of(context).size.width * .5,
-                          color: Colors.green.withOpacity(.35),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(25),
-                            child: Icon(
-                              Icons.camera_alt_outlined,
-                              size: 80,
-                              color: Colors.green,
+                      ? Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                        child: Container(
+                            height: MediaQuery.of(context).size.height * .25,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: Colors.transparent,
+                              border: Border(
+                                  left: BorderSide(color: Colors.green, width: 1,),
+                                right:  BorderSide(color: Colors.green, width: 1,),
+                                top:  BorderSide(color: Colors.green, width: 1,),
+                                bottom:  BorderSide(color: Colors.green, width: 1,)
+                            ),),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Icon(
+                                  Icons.camera_alt_outlined,
+                                  size: 120,
+                                  color: Colors.green,
+                                ),
+                                Center(
+                                    child: Text(
+                                      "Click To Upload Image",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                      //    fontWeight: FontWeight.bold
+                                      ),
+                                    )),
+                              ],
                             ),
                           ),
-                        )
-                      : Image.file(
-                          File(image!.path),
-                          height: 200,
-                          width: 250,
-                          fit: BoxFit.cover,
-                        ),
+                      )
+                      : Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                        child: Image.file(
+                            File(image!.path),
+                            height: 200,
+                            width: double.infinity,
+                            fit: BoxFit.cover,
+                          ),
+                      ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Center(
-                    child: Text(
-                  "Upload an Image",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                )),
+
                 Padding(
-                    padding: const EdgeInsets.all(15.0),
+                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                     child: Container(
-                        height: 40,
-                        width: 80,
+                        height: 50,
+                        width: double.infinity,
                         decoration: BoxDecoration(
                             color: Colors.green,
-                            borderRadius: BorderRadius.circular(13)),
+                            //borderRadius: BorderRadius.circular(13)
+                        ),
                         child: InkWell(
                           onTap: () {
                             if (_key.currentState!.validate()) {
@@ -585,8 +602,9 @@ class _AddFisherManState extends State<AddFisherMan> {
                             child: Text(
                               "Submit",
                               style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
+                                //color: Colors.white,
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
                               ),
                             ),
                           ),

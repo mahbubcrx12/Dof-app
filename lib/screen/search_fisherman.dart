@@ -23,11 +23,11 @@ class _SearchHereState extends State<SearchHere> {
             }),
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.black.withOpacity(.6),
             )),
         title: Text(
-          "Search Fisherman",
-          style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+          "Search Fisher",
+          style: TextStyle(color: Colors.black.withOpacity(.65),fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.green,
@@ -44,6 +44,7 @@ class _SearchHereState extends State<SearchHere> {
                 padding: const EdgeInsets.all(12.0),
                 child: TextField(
                   controller: filterController,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                       hintText: "Enter Form ID/NID",
                       prefixIcon: Icon(
