@@ -23,11 +23,15 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
-            child: Text(
-              "Menu",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+          Container(
+            color: Colors.green,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
+              child: Text(
+                "Menu",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              ),
             ),
           ),
           Container(

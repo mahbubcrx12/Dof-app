@@ -137,7 +137,7 @@ class _AddFisherManState extends State<AddFisherMan> {
         ),
         title: Text(
           "Fisher Registration",
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black.withOpacity(.65), fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.green,
@@ -168,7 +168,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "জেলের নাম",
                         hintText: "জেলের নাম",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -191,7 +190,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Fisherman Name",
                         hintText: "Fisherman Name",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -215,7 +213,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "NID Number",
                         hintText: "NID Number",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -241,7 +238,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Mobile Number",
                         hintText: "Mobile Number",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -268,7 +264,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Gender",
                         hintText: "Gender",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -307,7 +302,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Date Of Birth",
                         hintText: "Date Of Birth",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -344,7 +338,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Mother's Name",
                         hintText: "Mother's Name",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -367,7 +360,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Father's Name",
                         hintText: "Father's Name",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -390,7 +382,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "",
                         hintText: "",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -399,7 +390,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                       'Select Division',
                       overflow: TextOverflow.ellipsis,
                     ),
-
                     validator: (value) =>
                         value == null ? 'field required' : null,
                     items: divisionList.map((item) {
@@ -448,7 +438,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "",
                         hintText: "",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -501,7 +490,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Upazilla",
                         hintText: "Upazilla",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
@@ -524,7 +512,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                         labelText: "Post Office",
                         hintText: "Post Office",
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(12),
                             gapPadding: 4.0,
                             borderSide:
                                 BorderSide(color: Colors.green, width: 30))),
@@ -590,13 +577,15 @@ class _AddFisherManState extends State<AddFisherMan> {
                         ),
                         child: InkWell(
                           onTap: () {
-                            if (_key.currentState!.validate()) {
-                              _key.currentState!.save();
-                            }
                             if (image == null) {
                               showInToast("Please Upload an Image");
                             }
-                            addFisherman();
+                            if (_key.currentState!.validate()) {
+                              _key.currentState!.save();
+                              addFisherman();
+                            }
+
+
                           },
                           child: Center(
                             child: Text(
