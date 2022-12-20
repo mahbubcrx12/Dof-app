@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
@@ -21,11 +22,15 @@ class NoticePage extends StatefulWidget {
 class _NoticePageState extends State<NoticePage> {
   String? url;
   String? title;
+  Timer? timer;
+
 
   @override
-  void didChangeDependencies() {
+  void didChangeDependencies()async {
     // TODO: implement didChangeDependencies
     Provider.of<NoticeProvider>(context).getNoticeData();
+    //timer = Timer.periodic(Duration(seconds: 15), (Timer t) => Provider.of<NoticeProvider>(context).getNoticeData());
+
     super.didChangeDependencies();
   }
 
@@ -60,17 +65,28 @@ class _NoticePageState extends State<NoticePage> {
     } else {}
   }
 
+  // @override
+  // void dispose() {
+  //   // TODO: implement dispose
+  //   timer!.cancel();
+  //   super.dispose();
+  // }
   @override
   Widget build(BuildContext context) {
     var noticeData = Provider.of<NoticeProvider>(context).noticeData;
 
     return Scaffold(
         appBar: AppBar(
+          elevation: 0,
           backgroundColor: Colors.green,
           leading: IconButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+            splashRadius: 30,
+              splashColor: Colors.blueGrey[200],
+              onPressed: (() {
+                Future.delayed(const Duration(milliseconds: 60), () {
+                  Navigator.pop(context);
+                });
+              }),
               icon: Icon(
                 Icons.arrow_back_ios,
                 color: Colors.black87.withOpacity(.8),
@@ -87,7 +103,9 @@ class _NoticePageState extends State<NoticePage> {
                     shrinkWrap: true,
                     itemCount: noticeData.length,
                     itemBuilder: (context, index) {
-                      return Padding(
+                      return
+
+                        Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
                         child: Card(
@@ -104,7 +122,7 @@ class _NoticePageState extends State<NoticePage> {
                               style: TextStyle(color: Colors.black),
                             ),
                             children: [
-                              Image(
+                               Image(
                                 image: NetworkImage(
                                     "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].image}"),
                                 fit: BoxFit.cover,

@@ -43,17 +43,17 @@ class Data {
 
   Data(
       {this.id,
-      this.image,
-      this.path,
-      this.heading,
-      this.description,
-      this.publishingDate,
-      this.pdfFile,
-      this.pdfFileWithExtension,
-      this.status,
-      this.createdBy,
-      this.createdAt,
-      this.updatedAt});
+        this.image,
+        this.path,
+        this.heading,
+        this.description,
+        this.publishingDate,
+        this.pdfFile,
+        this.pdfFileWithExtension,
+        this.status,
+        this.createdBy,
+        this.createdAt,
+        this.updatedAt});
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];

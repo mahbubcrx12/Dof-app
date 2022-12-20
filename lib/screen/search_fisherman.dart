@@ -21,8 +21,12 @@ class _SearchHereState extends State<SearchHere> {
         elevation: 0,
 
         leading: IconButton(
+            splashRadius: 30,
+            splashColor: Colors.blueGrey[200],
             onPressed: (() {
-              Navigator.of(context).pop();
+              Future.delayed(const Duration(milliseconds: 60), () {
+                Navigator.pop(context);
+              });
             }),
             icon: Icon(
               Icons.arrow_back_ios,
@@ -57,7 +61,7 @@ class _SearchHereState extends State<SearchHere> {
 
                     },
                     decoration: InputDecoration(
-                        hintText: "Enter Form ID/NID",
+                        hintText: "Form ID/NID",
                         prefixIcon: Icon(
                           Icons.search_outlined,
                           color: Colors.green,
@@ -95,13 +99,11 @@ class _SearchHereState extends State<SearchHere> {
                               searchInput: filterController.text,
                             )));
                       }
-                     // filterController.text.isNotEmpty?
-
-                          //:showInToast("Enter Valid ID");
                     },
                     child: Text("Search",style: TextStyle(
                         fontSize: 20,
-                        color: Colors.black.withOpacity(.65) ),))
+                        color: Colors.white.withOpacity(.9) ),)
+                )
               ],
             ),
           ),

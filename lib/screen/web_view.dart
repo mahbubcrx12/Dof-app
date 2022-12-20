@@ -58,24 +58,22 @@ class _MatshoWebPageState extends State<MatshoWebPage> {
           ),
           Positioned(
               right: 0,
-              top: 10,
-              child: GestureDetector(
-                onTap: () {
-                  _drawer.currentState?.openEndDrawer();
-                 },
-                child: Container(
-                  height: 40,
-                  width: 100,
+              top: 3,
+              child: ElevatedButton(
+
+                  style: ButtonStyle(
+                   // elevation: MaterialStateProperty.all(0),
+                      backgroundColor: MaterialStateProperty.all(Colors.white)),
+                  onPressed: (){
+                    _drawer.currentState?.openEndDrawer();
+                  },
                   child: Icon(
-                    Icons.menu,
-                    color: Colors.green,
-                    size: 40,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.transparent,
-                  ),
-                ),
-              )),
+                      Icons.menu,
+                      color: Colors.green,
+                      size: 40,
+                  ))
+              )
+
       ],
     ),
         ));

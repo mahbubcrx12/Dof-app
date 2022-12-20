@@ -39,7 +39,7 @@ class Data {
   String? fathersName;
   String? spouseName;
   String? dateOfBirth;
-  int? mobile;
+  String? mobile;
   String? permanentDivision;
   String? permanentDistrict;
   String? permanentUpazilla;
@@ -52,11 +52,11 @@ class Data {
   String? education;
   String? maritalStaus;
   int? totalFamilyMember;
-  int? numberOfSpouse;
-  int? numberOfMother;
-  int? numberOfFather;
-  int? numberOfDaughter;
-  int? numberOfSon;
+  String? numberOfSpouse;
+  String? numberOfMother;
+  String? numberOfFather;
+  String? numberOfDaughter;
+  String? numberOfSon;
   String? nationality;
   String? presentDivision;
   String? presentDistrict;
@@ -69,16 +69,16 @@ class Data {
   String? typeOfFishing;
   String? groupMember;
   String? ownerOfNet;
-  int? lengthOfNet;
-  int? widthOfNet;
-  int? priceOfNet;
+  String? lengthOfNet;
+  String? widthOfNet;
+  String? priceOfNet;
   String? sourceOfPurchaseOfNet;
   String? typeOfVessel;
   String? ownerOfVessel;
-  int? lengthOfVessels;
-  int? widthOfVessels;
-  int? heightOfVessels;
-  int? priceOfVessels;
+  String? lengthOfVessels;
+  String? widthOfVessels;
+  String? heightOfVessels;
+  String? priceOfVessels;
   String? typeOfEmploymentonVessel;
   String? mainProfession;
   String? subProfession;
@@ -89,63 +89,63 @@ class Data {
 
   Data(
       {this.formId,
-      this.status,
-      this.permanentPostOffice,
-      this.fishermanNameBng,
-      this.fishermanNameEng,
-      this.nationalIdNo,
-      this.gender,
-      this.mothersName,
-      this.fathersName,
-      this.spouseName,
-      this.dateOfBirth,
-      this.mobile,
-      this.permanentDivision,
-      this.permanentDistrict,
-      this.permanentUpazilla,
-      this.permanentMuniciplaity,
-      this.permanentUnion,
-      this.permanentVillage,
-      this.permenentPostOffice,
-      this.placeOfBirth,
-      this.religion,
-      this.education,
-      this.maritalStaus,
-      this.totalFamilyMember,
-      this.numberOfSpouse,
-      this.numberOfMother,
-      this.numberOfFather,
-      this.numberOfDaughter,
-      this.numberOfSon,
-      this.nationality,
-      this.presentDivision,
-      this.presentDistrict,
-      this.presentUpazilla,
-      this.presentMunicipality,
-      this.presentUnion,
-      this.presentVillage,
-      this.presentPostOffice,
-      this.timeOfFishing,
-      this.typeOfFishing,
-      this.groupMember,
-      this.ownerOfNet,
-      this.lengthOfNet,
-      this.widthOfNet,
-      this.priceOfNet,
-      this.sourceOfPurchaseOfNet,
-      this.typeOfVessel,
-      this.ownerOfVessel,
-      this.lengthOfVessels,
-      this.widthOfVessels,
-      this.heightOfVessels,
-      this.priceOfVessels,
-      this.typeOfEmploymentonVessel,
-      this.mainProfession,
-      this.subProfession,
-      this.annualIncome,
-      this.fishermenYearlyLoan,
-      this.fishermenYearlySaving,
-      this.fishermenDangerPeriodofLiving});
+        this.status,
+        this.permanentPostOffice,
+        this.fishermanNameBng,
+        this.fishermanNameEng,
+        this.nationalIdNo,
+        this.gender,
+        this.mothersName,
+        this.fathersName,
+        this.spouseName,
+        this.dateOfBirth,
+        this.mobile,
+        this.permanentDivision,
+        this.permanentDistrict,
+        this.permanentUpazilla,
+        this.permanentMuniciplaity,
+        this.permanentUnion,
+        this.permanentVillage,
+        this.permenentPostOffice,
+        this.placeOfBirth,
+        this.religion,
+        this.education,
+        this.maritalStaus,
+        this.totalFamilyMember,
+        this.numberOfSpouse,
+        this.numberOfMother,
+        this.numberOfFather,
+        this.numberOfDaughter,
+        this.numberOfSon,
+        this.nationality,
+        this.presentDivision,
+        this.presentDistrict,
+        this.presentUpazilla,
+        this.presentMunicipality,
+        this.presentUnion,
+        this.presentVillage,
+        this.presentPostOffice,
+        this.timeOfFishing,
+        this.typeOfFishing,
+        this.groupMember,
+        this.ownerOfNet,
+        this.lengthOfNet,
+        this.widthOfNet,
+        this.priceOfNet,
+        this.sourceOfPurchaseOfNet,
+        this.typeOfVessel,
+        this.ownerOfVessel,
+        this.lengthOfVessels,
+        this.widthOfVessels,
+        this.heightOfVessels,
+        this.priceOfVessels,
+        this.typeOfEmploymentonVessel,
+        this.mainProfession,
+        this.subProfession,
+        this.annualIncome,
+        this.fishermenYearlyLoan,
+        this.fishermenYearlySaving,
+        this.fishermenDangerPeriodofLiving});
 
   Data.fromJson(Map<String, dynamic> json) {
     formId = json['formId'];

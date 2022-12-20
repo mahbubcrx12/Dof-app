@@ -17,7 +17,7 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.white.withOpacity(.8),
+      backgroundColor: Colors.white,
       elevation: 5,
       width: MediaQuery.of(context).size.width * .65,
       child: Column(
@@ -30,23 +30,28 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
               padding: const EdgeInsets.only(left: 20, top: 20, bottom: 20),
               child: Text(
                 "Menu",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold,color: Colors.black.withOpacity(.65)),
               ),
             ),
           ),
+          // Container(
+          //   height: 1,
+          //   color: Colors.black54.withOpacity(.3),
+          // ),
           Container(
-            height: 1,
-            color: Colors.black54.withOpacity(.3),
-          ),
-          Container(
+
             height: MediaQuery.of(context).size.height * .35,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 InkWell(
+                  splashColor: Colors.blueGrey[200],
+                  //splashFactory: InkRipple.splashFactory,
                   onTap: (() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => AddFisherMan())));
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => AddFisherMan()));
+                    });
                   }),
                   child: Container(
                     height: 50,
@@ -80,9 +85,13 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   color: Colors.black12,
                 ),
                 InkWell(
+                  splashColor: Colors.blueGrey[200],
+
                   onTap: (() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => NoticePage())));
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => NoticePage()));
+                    });
                   }),
                   child: Container(
                     height: 50,
@@ -113,9 +122,13 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                   color: Colors.black12,
                 ),
                 InkWell(
+                  splashColor: Colors.blueGrey[200],
+
                   onTap: (() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => SearchHere())));
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => SearchHere()));
+                    });
                   }),
                   child: Container(
                     height: 50,
@@ -147,9 +160,13 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                 ),
                 // Divider(color: Colors.black,height: 2),
                 InkWell(
+                  splashColor: Colors.blueGrey[200],
+
                   onTap: (() {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => IssueSubmitPage())));
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => IssueSubmitPage()));
+                    });
                   }),
                   child: Container(
                     height: 50,

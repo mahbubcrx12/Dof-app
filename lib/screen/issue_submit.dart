@@ -73,6 +73,7 @@ class _IssueSubmitPageState extends State<IssueSubmitPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
+        elevation: 0,
         backgroundColor: Colors.green,
         leading: IconButton(
             onPressed: () {

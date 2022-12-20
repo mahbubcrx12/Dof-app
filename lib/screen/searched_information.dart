@@ -26,13 +26,13 @@ class _SearchFisherManState extends State<SearchFisherMan> {
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
 
-        print("ggggggggggggg $data");
+        //print("ggggggggggggg $data");
 
         Data fisharData;
         for (var i in data['data']) {
           fisharData = Data.fromJson(i);
           fishermanData.add(fisharData);
-          print("aaaaaaaaaaaaaaaaaaaaaaaaaa$fishermanData");
+          //print("aaaaaaaaaaaaaaaaaaaaaaaaaa$fishermanData");
         }
 
         return fishermanData;
@@ -60,6 +60,8 @@ class _SearchFisherManState extends State<SearchFisherMan> {
           elevation: 0,
           backgroundColor: Colors.green,
           leading: IconButton(
+            splashRadius: 30,
+              splashColor: Colors.blueGrey.shade200,
               onPressed: () {
                 Navigator.of(context).pop();
               },
@@ -67,6 +69,7 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                 Icons.arrow_back_ios,
                 color: Colors.black.withOpacity(.65),
               )),
+          centerTitle: true,
           title: Text(
             "Result",
             style: TextStyle(
@@ -76,17 +79,12 @@ class _SearchFisherManState extends State<SearchFisherMan> {
           ),
           actions: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: InkWell(
-                onTap: () {
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (_) => SearchHere()));
-                },
-                child: Icon(
-                  Icons.search_sharp,
-                  color: Colors.black.withOpacity(.6),
-                ),
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: IconButton(onPressed: (){
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (_) => SearchHere()));
+              },
+                  icon: Icon(Icons.search,color: Colors.black.withOpacity(.65),))
             )
           ],
         ),
@@ -126,15 +124,17 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                                 children: [
                                   Padding(
                                     padding: const EdgeInsets.all(4.0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(10),
-                                      child: Image(
-                                        image: NetworkImage(
-                                          "https://media.istockphoto.com/id/1398211201/photo/smiling-mature-fisherman-holding-a-carp-fish-and-standing-in-a-river.jpg?b=1&s=170667a&w=0&k=20&c=xeX2wUmXo1k42KSeJftAHZM9qospxciZH7gbhmv0W2c=",
+                                    child: Center(
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image(
+                                          image: NetworkImage(
+                                            "https://t3.ftcdn.net/jpg/01/65/63/94/360_F_165639425_kRh61s497pV7IOPAjwjme1btB8ICkV0L.jpg",
+                                          ),
+                                          height: 300,
+                                          width: 300,
+                                          fit: BoxFit.cover,
                                         ),
-                                        height: 200,
-                                        width: 300,
-                                        fit: BoxFit.cover,
                                       ),
                                     ),
                                   ),
@@ -390,13 +390,20 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                           SizedBox(
                             height: 20,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Family Information (পারিবারিক তথ্য) ",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: Colors.blueGrey.withOpacity(.3),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Center(
+                                child: Text(
+                                  "Family Information (পারিবারিক তথ্য) ",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

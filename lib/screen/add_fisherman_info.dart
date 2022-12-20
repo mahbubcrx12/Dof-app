@@ -37,6 +37,7 @@ class _AddFisherManState extends State<AddFisherMan> {
 
   //taking image
   File? image;
+
   Future takeImage() async {
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
@@ -100,6 +101,7 @@ class _AddFisherManState extends State<AddFisherMan> {
   //calling division from api
   List<DivisionList> divisionList = [];
   String? chosenDivision;
+
   getDivision() async {
     divisionList = await GetDivisionList().fetchDivision();
     setState(() {});
@@ -108,7 +110,6 @@ class _AddFisherManState extends State<AddFisherMan> {
   //calling district based on division
   String? chosenDistrict;
   List<DistrictModel> districtList = [];
-
 
   //calling division initially
   @override
@@ -126,24 +127,31 @@ class _AddFisherManState extends State<AddFisherMan> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        leading: InkWell(
-          onTap: (() {
-            Navigator.of(context).pop();
+        elevation: 0,
+        leading: IconButton(
+          splashColor: Colors.blueGrey[200],
+          splashRadius: 30,
+          onPressed: (() {
+            Future.delayed(const Duration(milliseconds: 60), () {
+              Navigator.pop(context);
+            });
           }),
-          child: Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
             color: Colors.black,
           ),
         ),
         title: Text(
           "Fisher Registration",
-          style: TextStyle(color: Colors.black.withOpacity(.65), fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: Colors.black.withOpacity(.65),
+              fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
         backgroundColor: Colors.green,
       ),
       body: Container(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.only(left: 12, right: 12, bottom: 15),
         child: SingleChildScrollView(
           child: Form(
             key: _key,
@@ -283,7 +291,6 @@ class _AddFisherManState extends State<AddFisherMan> {
                     ],
                   ),
                 ),
-
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -365,10 +372,9 @@ class _AddFisherManState extends State<AddFisherMan> {
                                 color: Color(0xFF642E4C), width: 30))),
                   ),
                 ),
-
-
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                   child: DropdownButtonFormField<String>(
                     isExpanded: true,
                     icon: Icon(
@@ -406,25 +412,21 @@ class _AddFisherManState extends State<AddFisherMan> {
                         }).toList() ??
                         [],
                     onChanged: (String? newValue) {
-                      setState(() async{
-                        chosenDistrict=null;
+                      setState(() async {
+                        chosenDistrict = null;
                         chosenDivision = newValue;
                         print(
                             "Division id isssssssssssssssssssssssssssssssssssss $chosenDivision");
-                        districtList=await GetDistrictList().fetchDistrict(
-                            id: int.parse(chosenDivision!));
-                        setState(() {
-
-                        });
-
+                        districtList = await GetDistrictList()
+                            .fetchDistrict(id: int.parse(chosenDivision!));
+                        setState(() {});
                       });
-
                     },
                   ),
                 ),
-
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
                   child: DropdownButtonFormField<String>(
                     isExpanded: true,
                     icon: Icon(
@@ -456,23 +458,22 @@ class _AddFisherManState extends State<AddFisherMan> {
                       });
                     },
                     validator: (value) =>
-                    value == null ? 'Field Required' : null,
+                        value == null ? 'Field Required' : null,
                     items: districtList.map((item) {
-                      return new DropdownMenuItem(
-                        child: new Text(
-                          "${item.districtEng}",
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
-                        ),
-                        value: item.districtId.toString(),
-                      );
-                    }).toList() ?? [],
-
+                          return new DropdownMenuItem(
+                            child: new Text(
+                              "${item.districtEng}",
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w400),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            value: item.districtId.toString(),
+                          );
+                        }).toList() ??
+                        [],
                   ),
                 ),
-
                 Padding(
                   padding:
                       const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
@@ -523,81 +524,84 @@ class _AddFisherManState extends State<AddFisherMan> {
                   },
                   child: image == null
                       ? Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 15),
+                          child: Container(
                             height: MediaQuery.of(context).size.height * .25,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Colors.transparent,
                               border: Border(
-                                  left: BorderSide(color: Colors.green, width: 1,),
-                                right:  BorderSide(color: Colors.green, width: 1,),
-                                top:  BorderSide(color: Colors.green, width: 1,),
-                                bottom:  BorderSide(color: Colors.green, width: 1,)
-                            ),),
+                                  left: BorderSide(
+                                    color: Colors.green,
+                                    width: 1,
+                                  ),
+                                  right: BorderSide(
+                                    color: Colors.green,
+                                    width: 1,
+                                  ),
+                                  top: BorderSide(
+                                    color: Colors.green,
+                                    width: 1,
+                                  ),
+                                  bottom: BorderSide(
+                                    color: Colors.green,
+                                    width: 1,
+                                  )),
+                            ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Icon(
                                   Icons.camera_alt_outlined,
-                                  size: 120,
-                                  color: Colors.green,
+                                  size: 100,
+                                  color: Colors.blueGrey.withOpacity(.5),
                                 ),
                                 Center(
                                     child: Text(
-                                      "Click To Upload Image",
-                                      style: TextStyle(
-                                          fontSize: 16,
+                                  "Click To Upload Image",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: Colors.black.withOpacity(.65)
                                       //    fontWeight: FontWeight.bold
                                       ),
-                                    )),
+                                )),
                               ],
                             ),
                           ),
-                      )
+                        )
                       : Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                        child: Image.file(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8, horizontal: 15),
+                          child: Image.file(
                             File(image!.path),
                             height: 200,
                             width: double.infinity,
                             fit: BoxFit.cover,
                           ),
-                      ),
-                ),
-
-                Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                    child: Container(
-                        height: 50,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                            color: Colors.green,
-                            //borderRadius: BorderRadius.circular(13)
                         ),
-                        child: InkWell(
-                          onTap: () {
-                            if (image == null) {
-                              showInToast("Please Upload an Image");
-                            }
-                            if (_key.currentState!.validate()) {
-                              _key.currentState!.save();
-                              addFisherman();
-                            }
-
-
-                          },
-                          child: Center(
-                            child: Text(
-                              "Submit",
-                              style: TextStyle(
-                                //color: Colors.white,
-                                fontSize: 20,
-                                //fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ),
-                        ))),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8,horizontal: 15),
+                  child: ElevatedButton(
+                      style: ButtonStyle(
+                          minimumSize: MaterialStateProperty.all(Size(double.infinity, 50)),
+                          backgroundColor: MaterialStateProperty.all(Colors.green)),
+                      onPressed: () {
+                        if (image == null) {
+                          showInToast("Please Upload an Image");
+                        }
+                        if (_key.currentState!.validate()) {
+                          _key.currentState!.save();
+                          addFisherman();
+                        }
+                      },
+                      child: Text(
+                        "Submit",
+                        style: TextStyle(
+                            fontSize: 20, color: Colors.white.withOpacity(.9)),
+                      )),
+                )
               ],
             ),
           ),
