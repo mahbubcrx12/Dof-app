@@ -7,11 +7,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:motsha_app/model/district_model.dart';
 import 'package:motsha_app/model/division_list_model.dart';
+import 'package:motsha_app/model/upazilla_model.dart';
 import 'package:motsha_app/screen/web_view.dart';
 import 'package:motsha_app/service/district.dart';
 import 'package:motsha_app/service/get_division_list.dart';
+import 'package:motsha_app/service/get_upazilla.dart';
 import 'package:motsha_app/service/http_service.dart';
 import '../const/toast_message.dart';
+
 
 class AddFisherMan extends StatefulWidget {
   const AddFisherMan({Key? key}) : super(key: key);
@@ -107,9 +110,13 @@ class _AddFisherManState extends State<AddFisherMan> {
     setState(() {});
   }
 
-  //calling district based on division
+  //setting district value from network call
   String? chosenDistrict;
   List<DistrictModel> districtList = [];
+
+  //setting upazilla value from network call
+  String? chosenUpazilla;
+  List<UpazillaModel> upazillaList = [];
 
   //calling division initially
   @override
@@ -449,12 +456,18 @@ class _AddFisherManState extends State<AddFisherMan> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     onChanged: (String? newValue) {
-                      setState(() {
+                      setState(() async {
+                        chosenUpazilla=null;
                         chosenDistrict = newValue;
                         print(
-                            "District id isssssssssssssssssssssssssssssssssssss $chosenDivision");
-                        GetDistrictList()
-                            .fetchDistrict(id: int.parse(chosenDistrict!));
+                            "District id dddddddddddddddddddddddddddddddd $chosenDistrict");
+                        upazillaList=await GetUpazilla()
+                            .fetchUpazilla(
+                              divisionID: int.parse(chosenDivision!),districtID: int.parse(chosenDistrict!)
+                            );
+                        setState(() {
+
+                        });
                       });
                     },
                     validator: (value) =>
@@ -476,24 +489,53 @@ class _AddFisherManState extends State<AddFisherMan> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                  child: TextFormField(
-                    controller: upazillaIdController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty)
-                        return "Field is required";
-                      return null;
-                    },
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 30,
+                    ),
                     decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
-                        labelText: "Upazilla",
-                        hintText: "Upazilla",
+                        labelText: "",
+                        hintText: "",
                         border: OutlineInputBorder(
                             gapPadding: 4.0,
                             borderSide: BorderSide(
                                 color: Color(0xFF642E4C), width: 30))),
+                    value: chosenUpazilla,
+                    hint: Text(
+                      'Select Upazilla',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() async {
+                        chosenUpazilla = newValue;
+                        print(
+                            "Upazilla id isssssssssssssssssssssssssssssssssssss $chosenUpazilla");
+                        upazillaList= await GetUpazilla()
+                            .fetchUpazilla(
+                            divisionID: int.parse(chosenDivision!) , districtID: int.parse(chosenDistrict!) );
+                      });
+                    },
+                    validator: (value) =>
+                    value == null ? 'Field Required' : null,
+                    items: upazillaList.map((item) {
+                      return new DropdownMenuItem(
+                        child: new Text(
+                          "${item.upazilaEng}",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        value: item.upazilaId.toString(),
+                      );
+                    }).toList() ??
+                        [],
                   ),
                 ),
                 Padding(

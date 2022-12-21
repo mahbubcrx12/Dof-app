@@ -2,15 +2,18 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
+import 'package:file_utils/file_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
+import 'package:intl/intl.dart';
 import 'package:motsha_app/const/toast_message.dart';
 import 'package:motsha_app/provider/notice_provider.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:path_provider/path_provider.dart' as path;
+
 
 class NoticePage extends StatefulWidget {
   const NoticePage({Key? key}) : super(key: key);
@@ -22,14 +25,14 @@ class NoticePage extends StatefulWidget {
 class _NoticePageState extends State<NoticePage> {
   String? url;
   String? title;
-  Timer? timer;
+
 
 
   @override
   void didChangeDependencies()async {
     // TODO: implement didChangeDependencies
     Provider.of<NoticeProvider>(context).getNoticeData();
-    //timer = Timer.periodic(Duration(seconds: 15), (Timer t) => Provider.of<NoticeProvider>(context).getNoticeData());
+
 
     super.didChangeDependencies();
   }
@@ -49,28 +52,66 @@ class _NoticePageState extends State<NoticePage> {
     }
   }
 
-  downloadPDF({String? downloadLink, String? title}) async {
-    var dio;
-    if (await Permission.storage.request().isGranted) {
-      final downloadPath = await path.getExternalStorageDirectory();
-      var filePath = downloadPath!.path + '/$title';
+  //downloading pdf from notice
+  final pdfUrl = "http://dof-demo.rdtl.xyz/noticeboard/2022-12-21-09-47-41167161606148.pdf";
+  bool downloading = false;
+  var progress = "";
+  var path = "No Data";
+  var platformVersion = "Unknown";
+  var _onPressed;
+  late Directory externalDir;
 
-      dio = Dio();
-      await dio.download(downloadLink, filePath).then((value) {
-        dio.close();
-      }).catchError((Object e) {
-        Fluttertoast.showToast(
-            msg: "Download successful", timeInSecForIosWeb: 1);
-      });
-    } else {}
+  String convertCurrentDateTimeToString() {
+    String formattedDateTime =
+    DateFormat('yyyyMMdd_kkmmss').format(DateTime.now()).toString();
+    return formattedDateTime;
   }
 
-  // @override
-  // void dispose() {
-  //   // TODO: implement dispose
-  //   timer!.cancel();
-  //   super.dispose();
-  // }
+  Future<void> downloadFile() async {
+    Dio dio = Dio();
+    final status = await Permission.storage.request();
+    if (status.isGranted) {
+      String dirloc = "";
+      if (Platform.isAndroid) {
+        dirloc = "/sdcard/download/dof/";
+      } else {
+        dirloc = (await getApplicationDocumentsDirectory()).path;
+      }
+
+      try {
+        FileUtils.mkdir([dirloc]);
+        await dio.download(pdfUrl, dirloc + convertCurrentDateTimeToString() + ".pdf",
+            onReceiveProgress: (receivedBytes, totalBytes) {
+              print('here 1');
+              setState(() {
+                downloading = true;
+                progress = ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
+                print(progress);
+              });
+              print('here 2');
+            });
+      } catch (e) {
+        print('catch catch catch');
+        print(e);
+      }
+
+      setState(() {
+        downloading = false;
+        progress = "Download Completed.";
+        path = dirloc + convertCurrentDateTimeToString() + ".pdf";
+      });
+      print(path);
+      print('here give alert-->completed');
+    } else {
+      setState(() {
+        progress = "Permission Denied!";
+        _onPressed = () {
+          downloadFile();
+        };
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     var noticeData = Provider.of<NoticeProvider>(context).noticeData;
@@ -172,10 +213,7 @@ class _NoticePageState extends State<NoticePage> {
                                           "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFile}";
                                       title =
                                           "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFileWithExtension}";
-                                      downloadPDF(
-                                          downloadLink:
-                                              "http://dof-demo.rdtl.xyz/noticeboard/images/850fe67f759378fd216837f4ef42ce9b.pdf",
-                                          title: title);
+                                      downloadFile();
                                     },
                                     child: Container(
                                         height: 30,
