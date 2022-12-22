@@ -2,7 +2,8 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import '../const/toast_message.dart';
-import '../service/http_service.dart';
+import '../service/get_all_notice.dart';
+
 
 class IssueSubmitPage extends StatefulWidget {
   const IssueSubmitPage({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _IssueSubmitPageState extends State<IssueSubmitPage> {
   Future submitIssue() async {
     var link = Uri.parse("http://dof-demo.rdtl.xyz/api/issue-report/submit");
     var request = http.MultipartRequest("POST", link);
-    request.headers.addAll(await HttpService.defaultHeader);
+    request.headers.addAll(await GetNoticeData.defaultHeader);
 
     request.fields["name"] = nameController.text.toString();
     request.fields["mobile"] = mobileNoController.text.toString();

@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:motsha_app/screen/drawer_of_homepage.dart';
+import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 

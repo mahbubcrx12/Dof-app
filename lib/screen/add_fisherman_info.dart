@@ -10,9 +10,9 @@ import 'package:motsha_app/model/division_list_model.dart';
 import 'package:motsha_app/model/upazilla_model.dart';
 import 'package:motsha_app/screen/web_view.dart';
 import 'package:motsha_app/service/district.dart';
+import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:motsha_app/service/get_division_list.dart';
 import 'package:motsha_app/service/get_upazilla.dart';
-import 'package:motsha_app/service/http_service.dart';
 import '../const/toast_message.dart';
 
 
@@ -59,7 +59,7 @@ class _AddFisherManState extends State<AddFisherMan> {
   Future addFisherman() async {
     var link = Uri.parse("http://dof-demo.rdtl.xyz/api/fisher/add-data");
     var request = http.MultipartRequest("POST", link);
-    request.headers.addAll(await HttpService.defaultHeader);
+    request.headers.addAll(await GetNoticeData.defaultHeader);
     request.fields["fishermanNameBng"] =
         fishermanNameEngController.text.toString();
     request.fields["fishermanNameEng"] =

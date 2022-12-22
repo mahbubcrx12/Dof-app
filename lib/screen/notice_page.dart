@@ -5,11 +5,11 @@ import 'package:dio/dio.dart';
 import 'package:file_utils/file_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:motsha_app/const/toast_message.dart';
 import 'package:motsha_app/provider/notice_provider.dart';
+import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
@@ -53,7 +53,7 @@ class _NoticePageState extends State<NoticePage> {
   }
 
   //downloading pdf from notice
-  final pdfUrl = "http://dof-demo.rdtl.xyz/noticeboard/2022-12-21-09-47-41167161606148.pdf";
+  //final pdfUrl = "http://dof-demo.rdtl.xyz/noticeboard/2022-12-21-09-47-41167161606148.pdf";
   bool downloading = false;
   var progress = "";
   var path = "No Data";
@@ -67,7 +67,7 @@ class _NoticePageState extends State<NoticePage> {
     return formattedDateTime;
   }
 
-  Future<void> downloadFile() async {
+  Future<void> downloadFile({required String? noticeFileUrl}) async {
     Dio dio = Dio();
     final status = await Permission.storage.request();
     if (status.isGranted) {
@@ -80,7 +80,7 @@ class _NoticePageState extends State<NoticePage> {
 
       try {
         FileUtils.mkdir([dirloc]);
-        await dio.download(pdfUrl, dirloc + convertCurrentDateTimeToString() + ".pdf",
+        await dio.download(noticeFileUrl!, dirloc + convertCurrentDateTimeToString() + ".pdf",
             onReceiveProgress: (receivedBytes, totalBytes) {
               print('here 1');
               setState(() {
@@ -106,7 +106,7 @@ class _NoticePageState extends State<NoticePage> {
       setState(() {
         progress = "Permission Denied!";
         _onPressed = () {
-          downloadFile();
+          downloadFile(noticeFileUrl: url);
         };
       });
     }
@@ -163,20 +163,29 @@ class _NoticePageState extends State<NoticePage> {
                               style: TextStyle(color: Colors.black),
                             ),
                             children: [
-                               Image(
-                                image: NetworkImage(
-                                    "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].image}"),
-                                fit: BoxFit.cover,
-                              ),
-                              Text("${noticeData[index].description}"),
+                              // Container(
+                              //   child: ListView.builder(
+                              //   shrinkWrap: true,
+                              //   itemCount:"http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].pdfFile}".length,
+                              //   itemBuilder: (context,index){
+                              //     return Container(
+                              //       height: 100,
+                              //       width: 100,
+                              //       color: Colors.yellow,
+                              //       child: Icon(Icons.ac_unit),
+                              //     );
+                              //   }),
+                              // ),
+                              Text("${noticeData[index].pdfFile}"),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   InkWell(
-                                    onTap: () {
+                                    onTap: () async{
+                                       await GetNoticeData().fetchNoticeFiles();
                                       url =
-                                          "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].image}";
+                                          "http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].image}";
                                       _saveImage();
                                     },
                                     child: Container(
@@ -210,10 +219,11 @@ class _NoticePageState extends State<NoticePage> {
                                   InkWell(
                                     onTap: () {
                                       url =
-                                          "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFile}";
-                                      title =
-                                          "http://dof-demo.rdtl.xyz/noticeboard/images/${noticeData[index].pdfFileWithExtension}";
-                                      downloadFile();
+                                          "http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].pdfFile}";
+
+
+
+                                     // downloadFile(noticeFileUrl: url);
                                     },
                                     child: Container(
                                         height: 30,
