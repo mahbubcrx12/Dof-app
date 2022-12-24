@@ -8,6 +8,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:motsha_app/const/toast_message.dart';
+import 'package:motsha_app/model/notice.dart';
 import 'package:motsha_app/provider/notice_provider.dart';
 import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:path_provider/path_provider.dart';
@@ -144,9 +145,8 @@ class _NoticePageState extends State<NoticePage> {
                     shrinkWrap: true,
                     itemCount: noticeData.length,
                     itemBuilder: (context, index) {
-                      return
-
-                        Padding(
+                      var list="${noticeData[index].pdfFile}";
+                      return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
                         child: Card(
@@ -162,7 +162,7 @@ class _NoticePageState extends State<NoticePage> {
                               "${noticeData[index].publishingDate}",
                               style: TextStyle(color: Colors.black),
                             ),
-                            children: [
+                            children:[
                               // Container(
                               //   child: ListView.builder(
                               //   shrinkWrap: true,
@@ -177,13 +177,22 @@ class _NoticePageState extends State<NoticePage> {
                               //   }),
                               // ),
                               Text("${noticeData[index].pdfFile}"),
+                              Text(list),
+                             Container(
+                               child: ListView.builder(
+                                 shrinkWrap: true,
+                                   itemCount: list.length,
+                                   itemBuilder: (context,index){
+                                 return Text(list);
+                               }),
+                             ),
                               Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
                                   InkWell(
                                     onTap: () async{
-                                       await GetNoticeData().fetchNoticeFiles();
+                                      // await GetNoticeData().fetchNoticeFiles();
                                       url =
                                           "http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].image}";
                                       _saveImage();
