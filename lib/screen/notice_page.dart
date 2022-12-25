@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:convert';
 import 'dart:typed_data';
 import 'package:dio/dio.dart';
 import 'package:file_utils/file_utils.dart';
@@ -8,12 +9,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:intl/intl.dart';
 import 'package:motsha_app/const/toast_message.dart';
-import 'package:motsha_app/model/notice.dart';
 import 'package:motsha_app/provider/notice_provider.dart';
-import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
+import 'package:path/path.dart' as p;
 
 
 class NoticePage extends StatefulWidget {
@@ -24,7 +24,7 @@ class NoticePage extends StatefulWidget {
 }
 
 class _NoticePageState extends State<NoticePage> {
-  String? url;
+  String? noticeFileDownloadingUrl;
   String? title;
 
 
@@ -43,7 +43,7 @@ class _NoticePageState extends State<NoticePage> {
     var status = await Permission.storage.request();
     if (status.isGranted) {
       var response = await Dio()
-          .get(url!, options: Options(responseType: ResponseType.bytes));
+          .get(noticeFileDownloadingUrl!, options: Options(responseType: ResponseType.bytes));
       final result = await ImageGallerySaver.saveImage(
           Uint8List.fromList(response.data),
           quality: 60,
@@ -81,15 +81,15 @@ class _NoticePageState extends State<NoticePage> {
 
       try {
         FileUtils.mkdir([dirloc]);
-        await dio.download(noticeFileUrl!, dirloc + convertCurrentDateTimeToString() + ".pdf",
+        await dio.download(noticeFileUrl!, dirloc + convertCurrentDateTimeToString()+ ".pdf",// + ".pdf"
             onReceiveProgress: (receivedBytes, totalBytes) {
-              print('here 1');
+              //print('here 1');
               setState(() {
                 downloading = true;
                 progress = ((receivedBytes / totalBytes) * 100).toStringAsFixed(0) + "%";
                 print(progress);
               });
-              print('here 2');
+             // print('here 2');
             });
       } catch (e) {
         print('catch catch catch');
@@ -98,16 +98,17 @@ class _NoticePageState extends State<NoticePage> {
 
       setState(() {
         downloading = false;
+        showInToast("Download Successful");
         progress = "Download Completed.";
-        path = dirloc + convertCurrentDateTimeToString() + ".pdf";
+        path = dirloc + convertCurrentDateTimeToString() + ".pdf";// + ".pdf"
       });
       print(path);
-      print('here give alert-->completed');
+     // print('here give alert-->completed');
     } else {
       setState(() {
         progress = "Permission Denied!";
         _onPressed = () {
-          downloadFile(noticeFileUrl: url);
+          downloadFile(noticeFileUrl: noticeFileDownloadingUrl);
         };
       });
     }
@@ -145,7 +146,8 @@ class _NoticePageState extends State<NoticePage> {
                     shrinkWrap: true,
                     itemCount: noticeData.length,
                     itemBuilder: (context, index) {
-                      var list="${noticeData[index].pdfFile}";
+                      var noticeFile="${noticeData[index].pdfFile}";
+                      var decodedNoticeFile=jsonDecode(noticeFile);
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 8, vertical: 5),
@@ -163,107 +165,103 @@ class _NoticePageState extends State<NoticePage> {
                               style: TextStyle(color: Colors.black),
                             ),
                             children:[
-                              // Container(
-                              //   child: ListView.builder(
-                              //   shrinkWrap: true,
-                              //   itemCount:"http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].pdfFile}".length,
-                              //   itemBuilder: (context,index){
-                              //     return Container(
-                              //       height: 100,
-                              //       width: 100,
-                              //       color: Colors.yellow,
-                              //       child: Icon(Icons.ac_unit),
-                              //     );
-                              //   }),
-                              // ),
-                              Text("${noticeData[index].pdfFile}"),
-                              Text(list),
-                             Container(
-                               child: ListView.builder(
-                                 shrinkWrap: true,
-                                   itemCount: list.length,
-                                   itemBuilder: (context,index){
-                                 return Text(list);
-                               }),
-                             ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  InkWell(
-                                    onTap: () async{
-                                      // await GetNoticeData().fetchNoticeFiles();
-                                      url =
-                                          "http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].image}";
-                                      _saveImage();
-                                    },
-                                    child: Container(
-                                        height: 30,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          border: Border(
-                                            left: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                            right: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                            top: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                            bottom: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Center(
-                                            child: Text("Download Image"))
-                                    ),
+
+                              GridView.builder(
+                                shrinkWrap: true,
+                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 4,
+                                      crossAxisSpacing: 0
                                   ),
-                                  InkWell(
-                                    onTap: () {
-                                      url =
-                                          "http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].pdfFile}";
+                                  itemCount: decodedNoticeFile.length,
+                                  itemBuilder: (BuildContext context,int index){
 
-
-
-                                     // downloadFile(noticeFileUrl: url);
-                                    },
-                                    child: Container(
-                                        height: 30,
-                                        width: 130,
-                                        decoration: BoxDecoration(
-                                          color: Colors.green,
-                                          border: Border(
-                                            left: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                            right: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                            top: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                            bottom: BorderSide(
-                                              color: Colors.green,
-                                              width: 1,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Center(
-                                            child: Text("Download PDF"))),
-                                  ),
-                                ],
+                                   // String fileExtension = p.extension(noticeFileDownloadingUrl?.path);
+                                    return IconButton(
+                                        onPressed: (){
+                                          print("${decodedNoticeFile[index].toString()}".split('.'));
+                                          noticeFileDownloadingUrl="http://dof-demo.rdtl.xyz/noticeboard/${decodedNoticeFile[index].toString()}";
+                                          downloadFile(noticeFileUrl: noticeFileDownloadingUrl);
+                                        },
+                                        icon: Icon(Icons.picture_as_pdf_rounded,
+                                          size: 50,
+                                          color: Colors.green,));
+                                  }
                               ),
-                              SizedBox(height: 10,)
+
+                              // ,SizedBox(height: 10,),
+                              //
+                              // Row(
+                              //   mainAxisAlignment:
+                              //       MainAxisAlignment.spaceAround,
+                              //   children: [
+                              //     InkWell(
+                              //       onTap: () async{
+                              //
+                              //         //     "http://dof-demo.rdtl.xyz/noticeboard/${noticeData[index].image}";
+                              //         // _saveImage();
+                              //       },
+                              //       child: Container(
+                              //           height: 30,
+                              //           width: 130,
+                              //           decoration: BoxDecoration(
+                              //             color: Colors.green,
+                              //             border: Border(
+                              //               left: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //               right: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //               top: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //               bottom: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           child: Center(
+                              //               child: Text("Download Image"))
+                              //       ),
+                              //     ),
+                              //     InkWell(
+                              //       onTap: () {
+                              //
+                              //       },
+                              //       child: Container(
+                              //           height: 30,
+                              //           width: 130,
+                              //           decoration: BoxDecoration(
+                              //             color: Colors.green,
+                              //             border: Border(
+                              //               left: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //               right: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //               top: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //               bottom: BorderSide(
+                              //                 color: Colors.green,
+                              //                 width: 1,
+                              //               ),
+                              //             ),
+                              //           ),
+                              //           child: Center(
+                              //               child: Text("Download PDF"))),
+                              //     ),
+                              //   ],
+                              // ),
+                              // SizedBox(height: 10,)
                             ],
                           ),
                         ),

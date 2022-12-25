@@ -9,32 +9,22 @@ class GetNoticeData {
 
   Future<List<Data>> fetcNotices() async {
     List<Data> noticeData = [];
-    List<Data> noticeFiles = [];
 
     try {
       var link = "http://dof-demo.rdtl.xyz/api/noticeboard/get-all-notice";
       var response =
           await http.get(Uri.parse(link), headers: await defaultHeader);
-      print(response.statusCode);
+      //print(response.statusCode);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
 
         Data dataNotice;
-        Data noticeFile;
         for (var i in data['data']) {
           dataNotice = Data.fromJson(i);
           noticeData.add(dataNotice);
 
-          // for(var j in data['data'][i]['pdfFile']){
-          //    noticeFile=Data.fromJson(j);
-          //    noticeFiles.add(noticeFile);
-          //
-          //   // print(i);
-          //   // print("rrrrrrrrrrrrrrrrrr");
-          //   // print(j);
-          // }
-          print("nnnnnnnnnnnnnnnnnnn$noticeFiles");
         }
+
         return noticeData;
       } else {
         return noticeData;
