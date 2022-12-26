@@ -30,7 +30,7 @@ class _SearchHereState extends State<SearchHere> {
             }),
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black.withOpacity(.6),
+              color: Colors.black.withOpacity(.65),
             )),
         title: Text(
           "Search Fisher",
@@ -102,7 +102,7 @@ class _SearchHereState extends State<SearchHere> {
                     },
                     child: Text("Search",style: TextStyle(
                         fontSize: 20,
-                        color: Colors.white.withOpacity(.9) ),)
+                        color: Colors.white ),)
                 )
               ],
             ),

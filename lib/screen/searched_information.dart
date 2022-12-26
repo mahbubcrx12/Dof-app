@@ -100,14 +100,21 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Personal Information(ব্যক্তিগত তথ্য)",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold),
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: Colors.blueGrey.withOpacity(.3),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Center(
+                                child: Text(
+                                  "Personal Information(ব্যক্তিগত তথ্য)",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
                             ),
                           ),
                           Container(
@@ -388,7 +395,7 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
                           Container(
                             height: 50,
@@ -410,7 +417,7 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                           Container(
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
-                              color: Colors.blueGrey.withOpacity(.1),
+                              color: Colors.blueGrey.withOpacity(.12),
                             ),
                             child: Padding(
                               padding: const EdgeInsets.all(8.0),
@@ -683,15 +690,22 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Permanent Address (স্থায়ী ঠিকানা)",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: Colors.blueGrey.withOpacity(.3),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Center(
+                                child: Text(
+                                  "Permanent Address (স্থায়ী ঠিকানা)",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -876,15 +890,22 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Present Address (বর্তমান ঠিকানা)",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: Colors.blueGrey.withOpacity(.3),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Center(
+                                child: Text(
+                                  "Present Address (বর্তমান ঠিকানা)",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
@@ -1075,15 +1096,22 @@ class _SearchFisherManState extends State<SearchFisherMan> {
                             ),
                           ),
                           SizedBox(
-                            height: 20,
+                            height: 10,
                           ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              "Fishing Information (মাছ ধরার তথ্য)",
-                              style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          Container(
+                            height: 50,
+                            width: double.infinity,
+                            color: Colors.blueGrey.withOpacity(.3),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 15),
+                              child: Center(
+                                child: Text(
+                                  "Fishing Information (মাছ ধরার তথ্য)",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
                               ),
                             ),
                           ),

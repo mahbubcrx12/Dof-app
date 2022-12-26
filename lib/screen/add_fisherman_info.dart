@@ -128,9 +128,6 @@ class _AddFisherManState extends State<AddFisherMan> {
 
   @override
   Widget build(BuildContext context) {
-    // var divisionList=Provider.of<DivisionProvider>(context).divisionData;
-    //var districtList=Provider.of<DistrictProvider>(context).districtData;
-    //print("dldldldldldl ${divisionList}");
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
@@ -145,7 +142,7 @@ class _AddFisherManState extends State<AddFisherMan> {
           }),
           icon: Icon(
             Icons.arrow_back_ios,
-            color: Colors.black,
+            color: Colors.black.withOpacity(.65),
           ),
         ),
         title: Text(

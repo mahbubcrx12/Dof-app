@@ -82,7 +82,7 @@ class _IssueSubmitPageState extends State<IssueSubmitPage> {
             },
             icon: Icon(
               Icons.arrow_back_ios,
-              color: Colors.black,
+              color: Colors.black.withOpacity(.65),
             )),
         title: Text(
           "Submit Your Issue",
@@ -234,7 +234,7 @@ class _IssueSubmitPageState extends State<IssueSubmitPage> {
                         },
                         child: Text("Submit",style: TextStyle(
                           fontSize: 20,
-                          color: Colors.black.withOpacity(.65)
+                          color: Colors.white
                         ),)),
                   )
                 ],
