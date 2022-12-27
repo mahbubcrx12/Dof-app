@@ -1,4 +1,3 @@
-
 class NoticeModel {
   bool? status;
   String? msg;

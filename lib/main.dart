@@ -18,12 +18,12 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => NoticeProvider()),
-        // ChangeNotifierProvider(create: (context) => DivisionProvider()),
-        // ChangeNotifierProvider(create: (context)=>DistrictProvider()),
+        ChangeNotifierProvider(create: (context) => DivisionProvider()),
+        ChangeNotifierProvider(create: (context)=>DistrictProvider()),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: 'DOF',
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
