@@ -7,11 +7,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:motsha_app/model/district_model.dart';
 import 'package:motsha_app/model/division_list_model.dart';
+import 'package:motsha_app/model/post_office_model.dart';
 import 'package:motsha_app/model/upazilla_model.dart';
 import 'package:motsha_app/screen/web_view.dart';
 import 'package:motsha_app/service/district.dart';
 import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:motsha_app/service/get_division_list.dart';
+import 'package:motsha_app/service/get_post_office.dart';
 import 'package:motsha_app/service/get_upazilla.dart';
 import '../const/toast_message.dart';
 
@@ -71,8 +73,8 @@ class _AddFisherManState extends State<AddFisherMan> {
     request.fields["fathersName"] = fathersNameController.text.toString();
     request.fields["divisionId"] = chosenDivision.toString();
     request.fields["districtId"] = chosenDistrict.toString();
-    request.fields["upazillaId"] = upazillaIdController.text.toString();
-    request.fields["postOfficeId"] = postOfficeIdController.text.toString();
+    request.fields["upazillaId"] = chosenUpazilla.toString();
+    request.fields["postOfficeId"] = chosenPostOffice.toString();
     request.fields["dateOfBirth"] = dateOfBirthController.text.toString();
     var imageFile = await http.MultipartFile.fromPath("image", image!.path);
     request.files.add(imageFile);
@@ -110,19 +112,26 @@ class _AddFisherManState extends State<AddFisherMan> {
     setState(() {});
   }
 
-  //setting district value from network call
+  //setting district value from api call
   String? chosenDistrict;
   List<DistrictModel> districtList = [];
 
-  //setting upazilla value from network call
+  //setting upazilla value from api call
   String? chosenUpazilla;
   List<UpazillaModel> upazillaList = [];
+
+  //setting post office value from api call
+  String? chosenPostOffice;
+  List<PostOfficeModel> postOfficeList = [];
 
   //calling division initially
   @override
   void initState() {
     // TODO: implement initState
     getDivision();
+    setState(() {
+
+    });
     super.initState();
   }
 
@@ -417,13 +426,15 @@ class _AddFisherManState extends State<AddFisherMan> {
                         [],
                     onChanged: (String? newValue) {
                       setState(() async {
-                        chosenDistrict = null;
                         chosenDivision = newValue;
-                        print(
-                            "Division id isssssssssssssssssssssssssssssssssssss $chosenDivision");
                         districtList = await GetDistrictList()
                             .fetchDistrict(id: int.parse(chosenDivision!));
-                        setState(() {});
+
+                        setState(() {
+                          chosenDistrict = null;
+                          chosenUpazilla=null;
+                          chosenPostOffice=null;
+                        });
                       });
                     },
                   ),
@@ -453,17 +464,17 @@ class _AddFisherManState extends State<AddFisherMan> {
                       overflow: TextOverflow.ellipsis,
                     ),
                     onChanged: (String? newValue) {
+
                       setState(() async {
-                        chosenUpazilla=null;
                         chosenDistrict = newValue;
-                        print(
-                            "District id dddddddddddddddddddddddddddddddd $chosenDistrict");
                         upazillaList=await GetUpazilla()
                             .fetchUpazilla(
                               divisionID: int.parse(chosenDivision!),districtID: int.parse(chosenDistrict!)
                             );
-                        setState(() {
 
+                        setState(() {
+                          chosenUpazilla=null;
+                          chosenPostOffice=null;
                         });
                       });
                     },
@@ -510,13 +521,20 @@ class _AddFisherManState extends State<AddFisherMan> {
                     ),
                     onChanged: (String? newValue) {
                       setState(() async {
+
                         chosenUpazilla = newValue;
-                        print(
-                            "Upazilla id isssssssssssssssssssssssssssssssssssss $chosenUpazilla");
-                        upazillaList= await GetUpazilla()
-                            .fetchUpazilla(
-                            divisionID: int.parse(chosenDivision!) , districtID: int.parse(chosenDistrict!) );
+
+                        postOfficeList= await PostOfficeData()
+                            .fetchPostOffice(
+                            divisionID: int.parse(chosenDivision!) ,
+                            districtID: int.parse(chosenDistrict!),
+                            upazillaId: int.parse(chosenUpazilla!) );
+
+                        setState(() {
+                          chosenPostOffice=null;
+                        });
                       });
+
                     },
                     validator: (value) =>
                     value == null ? 'Field Required' : null,
@@ -537,24 +555,49 @@ class _AddFisherManState extends State<AddFisherMan> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
-                  child: TextFormField(
-                    controller: postOfficeIdController,
-                    validator: (value) {
-                      if (value == null || value.isEmpty)
-                        return "Field is required";
-                      return null;
-                    },
+                  const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+                  child: DropdownButtonFormField<String>(
+                    isExpanded: true,
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 30,
+                    ),
                     decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
-                        labelText: "Post Office",
-                        hintText: "Post Office",
+                        labelText: "",
+                        hintText: "",
                         border: OutlineInputBorder(
                             gapPadding: 4.0,
-                            borderSide:
-                                BorderSide(color: Colors.green, width: 30))),
+                            borderSide: BorderSide(
+                                color: Color(0xFF642E4C), width: 30))),
+                    value: chosenPostOffice,
+                    hint: Text(
+                      'Select Post Office',
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    onChanged: (String? newValue) {
+                      setState(() async {
+                        chosenPostOffice = newValue;
+                        setState(() {});
+                      });
+                    },
+                    validator: (value) =>
+                    value == null ? 'Field Required' : null,
+                    items: postOfficeList.map((item) {
+                      return new DropdownMenuItem(
+                        child: new Text(
+                          "${item.postOfficeEnglish}",
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.w400),
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 1,
+                        ),
+                        value: item.postId.toString(),
+                      );
+                    }).toList() ??
+                        [],
                   ),
                 ),
                 InkWell(

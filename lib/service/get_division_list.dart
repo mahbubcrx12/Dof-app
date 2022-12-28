@@ -14,20 +14,13 @@ class GetDivisionList {
       var link = "http://dof-demo.rdtl.xyz/api/address/get-division";
       var response =
           await http.get(Uri.parse(link), headers: await defaultHeader);
-      print(response.statusCode);
-
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
         DivisionList divisionData;
         for (var i in data) {
           divisionData = DivisionList.fromJson(i);
           divisionListData.add(divisionData);
-
-
         }
-
-        // print("wwwwwwwwwwwww");
-        // print(divisionListData);
         return divisionListData;
       } else {
         return divisionListData;

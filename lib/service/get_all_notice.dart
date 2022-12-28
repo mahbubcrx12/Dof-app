@@ -14,7 +14,6 @@ class GetNoticeData {
       var link = "http://dof-demo.rdtl.xyz/api/noticeboard/get-all-notice";
       var response =
           await http.get(Uri.parse(link), headers: await defaultHeader);
-      //print(response.statusCode);
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
 
@@ -22,9 +21,7 @@ class GetNoticeData {
         for (var i in data['data']) {
           dataNotice = Data.fromJson(i);
           noticeData.add(dataNotice);
-
         }
-
         return noticeData;
       } else {
         return noticeData;

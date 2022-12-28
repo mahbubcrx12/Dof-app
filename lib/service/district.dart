@@ -15,26 +15,20 @@ class GetDistrictList {
       var link = "http://dof-demo.rdtl.xyz/api/address/get-district/$id";
       var response =
       await http.get(Uri.parse(link), headers: await defaultHeader);
-     // print(response.statusCode);
-
       if (response.statusCode == 200) {
         var data = jsonDecode(response.body);
+
         DistrictModel districtData;
         for (var i in data) {
           districtData = DistrictModel.fromJson(i);
           districtListData.add(districtData);
-
-
         }
-
-        // print("wwwwwwwwwwwww");
-        // print(districtListData);
         return districtListData;
       } else {
         return districtListData;
       }
     } catch (e) {
-      //print(e);
+      print(e);
       return districtListData;
     }
   }
