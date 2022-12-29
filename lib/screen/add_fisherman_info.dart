@@ -398,7 +398,7 @@ class _AddFisherManState extends State<AddFisherMan> {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
-                        labelText: "",
+                        labelText: "Division",
                         hintText: "",
                         border: OutlineInputBorder(
                             gapPadding: 4.0,
@@ -426,15 +426,18 @@ class _AddFisherManState extends State<AddFisherMan> {
                         [],
                     onChanged: (String? newValue) {
                       setState(() async {
+                        districtList.clear();
+                        upazillaList.clear();
+                        postOfficeList.clear();
+                        chosenDistrict = null;
+                        chosenUpazilla=null;
+                        chosenPostOffice=null;
+
                         chosenDivision = newValue;
                         districtList = await GetDistrictList()
                             .fetchDistrict(id: int.parse(chosenDivision!));
 
-                        setState(() {
-                          chosenDistrict = null;
-                          chosenUpazilla=null;
-                          chosenPostOffice=null;
-                        });
+                        setState(() {});
                       });
                     },
                   ),
@@ -452,7 +455,7 @@ class _AddFisherManState extends State<AddFisherMan> {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
-                        labelText: "",
+                        labelText: "District",
                         hintText: "",
                         border: OutlineInputBorder(
                             gapPadding: 4.0,
@@ -466,16 +469,18 @@ class _AddFisherManState extends State<AddFisherMan> {
                     onChanged: (String? newValue) {
 
                       setState(() async {
+                        upazillaList.clear();
+                        postOfficeList.clear();
+                        chosenUpazilla=null;
+                        chosenPostOffice=null;
+
                         chosenDistrict = newValue;
                         upazillaList=await GetUpazilla()
                             .fetchUpazilla(
                               divisionID: int.parse(chosenDivision!),districtID: int.parse(chosenDistrict!)
                             );
 
-                        setState(() {
-                          chosenUpazilla=null;
-                          chosenPostOffice=null;
-                        });
+                        setState(() {});
                       });
                     },
                     validator: (value) =>
@@ -508,7 +513,7 @@ class _AddFisherManState extends State<AddFisherMan> {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
-                        labelText: "",
+                        labelText: "Upazilla",
                         hintText: "",
                         border: OutlineInputBorder(
                             gapPadding: 4.0,
@@ -521,18 +526,17 @@ class _AddFisherManState extends State<AddFisherMan> {
                     ),
                     onChanged: (String? newValue) {
                       setState(() async {
+                        postOfficeList.clear();
+                        chosenPostOffice=null;
 
                         chosenUpazilla = newValue;
-
                         postOfficeList= await PostOfficeData()
                             .fetchPostOffice(
                             divisionID: int.parse(chosenDivision!) ,
                             districtID: int.parse(chosenDistrict!),
                             upazillaId: int.parse(chosenUpazilla!) );
 
-                        setState(() {
-                          chosenPostOffice=null;
-                        });
+                        setState(() {});
                       });
 
                     },
@@ -566,7 +570,7 @@ class _AddFisherManState extends State<AddFisherMan> {
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(color: Colors.green),
                         ),
-                        labelText: "",
+                        labelText: "Post Office",
                         hintText: "",
                         border: OutlineInputBorder(
                             gapPadding: 4.0,
