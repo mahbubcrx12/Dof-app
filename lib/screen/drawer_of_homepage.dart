@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:motsha_app/screen/add_fisherman_info.dart';
 import 'package:motsha_app/screen/issue_submit.dart';
 import 'package:motsha_app/screen/notice_page.dart';
+import 'package:motsha_app/screen/scan_qr.dart';
 import 'package:motsha_app/screen/search_fisherman.dart';
 
 class HomePageDrawer extends StatefulWidget {
@@ -182,6 +183,44 @@ class _HomePageDrawerState extends State<HomePageDrawer> {
                           ),
                           Text(
                             "Submit Issue",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 1,
+                  color: Colors.black12,
+                ),
+                // Divider(color: Colors.black,height: 2),
+                InkWell(
+                  splashColor: Colors.blueGrey[200],
+
+                  onTap: (() {
+                    Future.delayed(const Duration(milliseconds: 200), () {
+                      Navigator.push(
+                          context, MaterialPageRoute(builder: (context) => QRScanner()));
+                    });
+                  }),
+                  child: Container(
+                    height: 50,
+                    width: MediaQuery.of(context).size.width * .9,
+                    color: color,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 20, top: 7),
+                      child: Row(
+                        children: [
+                          Icon(Icons.qr_code_scanner_sharp, color: Colors.green),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Text(
+                            "Scan QR",
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.black,
