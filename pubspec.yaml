@@ -53,6 +53,7 @@ dependencies:
   internet_connection_checker: ^1.0.0+1
   connectivity_plus: ^3.0.2
   file_utils: any
+  qr_code_scanner: ^1.0.1
 
 
   
