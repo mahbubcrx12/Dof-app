@@ -5,6 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
+
 class QRScanner extends StatefulWidget {
   const QRScanner({Key? key}) : super(key: key);
 
@@ -32,7 +33,7 @@ class _QRScannerState extends State<QRScanner> {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          Expanded(flex: 4, child: _buildQrView(context)),
+          Expanded(flex: 3, child: _buildQrView(context)),
           Expanded(
             flex: 1,
             child: FittedBox(
@@ -41,8 +42,10 @@ class _QRScannerState extends State<QRScanner> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   if (result != null)
+                    
                     Text(
-                        'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+                       // 'Barcode Type: ${describeEnum(result!.format)}  '
+                            '${result!.code}',style: TextStyle(fontSize: 20),)
                   else
                     const Text('Scan a code'),
                   Row(
@@ -147,6 +150,10 @@ class _QRScannerState extends State<QRScanner> {
       setState(() {
         result = scanData;
       });
+      print("ccccccccccccccccccc");
+      print(result!.code);
+      print("rrrrrrrrrrrrrrrrrr");
+      print(result!.rawBytes);
     });
   }
 

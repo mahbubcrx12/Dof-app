@@ -15,6 +15,7 @@ import 'package:motsha_app/service/get_all_notice.dart';
 import 'package:motsha_app/service/get_division_list.dart';
 import 'package:motsha_app/service/get_post_office.dart';
 import 'package:motsha_app/service/get_upazilla.dart';
+import '../const/show_alert.dart';
 import '../const/toast_message.dart';
 
 
@@ -45,7 +46,7 @@ class _AddFisherManState extends State<AddFisherMan> {
 
   Future takeImage() async {
     try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      final image = await ImagePicker().pickImage(source: ImageSource.camera,preferredCameraDevice:CameraDevice.front);
 
       if (image == null) return;
       final imageTemp = File(image.path);
@@ -93,14 +94,14 @@ class _AddFisherManState extends State<AddFisherMan> {
     print("status code");
     print(response.statusCode);
     if (response.statusCode == 200) {
-      showInToast("${data["message"]}");
-      Navigator.of(context).pop();
+      //showInToast("${data["message"]}");
+
+     // Navigator.of(context).pop();
     } else {
       showInToast("${data["message"]}");
     }
+    showAlertDialog(context);
 
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => MatshoWebPage()));
   }
 
   //calling division from api

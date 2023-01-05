@@ -70,7 +70,7 @@ class _NetworkCheckingState extends State<NetworkChecking> {
                   });
                 }
               },
-              child: const Text("OK"))
+              child: const Text("OK",style: TextStyle(color: Colors.green),))
         ],
       ));
 
